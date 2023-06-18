@@ -7,12 +7,20 @@ body {
 }
 
 a {
-    color: #017075;
+    color: #5ed3d9;
 }
 
 .card {
     color: white;
     background-color: salmon;
+}
+
+.card-action a {
+    color: teal;
+}
+
+input, textarea {
+    color: white;
 }
 
 nav {
@@ -23,9 +31,6 @@ main {
     flex: 1 0 auto;
 }
 
-td {
-    color: white;
-}
   
 footer.page-footer {
     padding-top: 0;
