@@ -40,6 +40,9 @@ class Pokemon(models.Model):
     def fed_for_today(self):
         return self.feeding_set.filter(date=date.today()).count() >= len(BERRIES)
     
+    class Meta:
+        ordering = ['number']
+    
 
 # New model - Feeding berries
 class Feeding(models.Model):
