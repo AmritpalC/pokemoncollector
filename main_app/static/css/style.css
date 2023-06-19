@@ -7,16 +7,7 @@ body {
 }
 
 a {
-    color: #5ed3d9;
-}
-
-.card {
-    color: white;
-    background-color: salmon;
-}
-
-.card-action a {
-    color: teal;
+    color: #0AF5DD;
 }
 
 input, textarea {

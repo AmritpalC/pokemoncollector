@@ -1,8 +1,9 @@
 from django.contrib import admin
 
 #importing model
-from .models import Pokemon, Feeding
+from .models import Pokemon, Feeding, Item
 
 # Register your models here.
 admin.site.register(Pokemon)
 admin.site.register(Feeding)
+admin.site.register(Item)

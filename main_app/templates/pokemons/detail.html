@@ -5,17 +5,17 @@
 
 <div class="row">
     <div class="col s6">
-        <div class="card">
+        <div class="card cyan darken-3">
             <div class="card-content">
                 <span class="card-tile">{{ pokemon.name }}</span>
                 <p># {{ pokemon.number }}</p>
                 <p>Type: {{ pokemon.type }}</p>
                 {% if pokemon.height > 0.3 %}
-                    <p>Height: {{ pokemon.height }}</p>
+                    <p>Height (m): {{ pokemon.height }}</p>
                 {% else %}
                     <p>Height: Tiny</p>
                 {% endif %}
-                <p>Weight: {{ pokemon.weight }}</p>
+                <p>Weight (kg): {{ pokemon.weight }}</p>
                 <p>Description: {{ pokemon.description|linebreaks }}</p>
             </div>
             <div class="card-action">
@@ -31,6 +31,12 @@
             {{ feeding_form.as_p }}
             <input type="submit" class="btn" value="Feed Berry">
         </form>
+        <br>
+        {% if pokemon.fed_for_today %}
+            <div class="card-panel blue-grey teal-text center-align">{{pokemon.name}} has been fed enough berries today</div>
+        {% else %}
+            <div class="card-panel blue-grey amber-text center-align">{{pokemon.name}} might be hungry</div>
+        {% endif %}
         <table class="striped">
             <thead>
                 <tr><th>Date</th><th>Berry</th></tr>
@@ -44,6 +50,54 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col s6">
+        <h3>{{ pokemon.name }}'s Items</h3>
+        {% if pokemon.items.count %}
+            {% for item in pokemon.items.all %}
+                <div class="card blue-grey darken-1">
+                    <div class="card-content">
+                        <span class="card-title">
+                            A <span style="color: {{ item.color }}">{{ item.color }}</span> {{ item.name }}
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'unassoc_item' pokemon.id item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Take</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>No Items 😿</h5>
+        {% endif %}
+    </div>
+    <!-- Available Items will come after this line -->
+    <div class="col s6">
+        <h3>Available Items</h3>
+        {% if items.count %}
+            {% for item in items.all %}
+                <div class="card blue-grey darken-3">
+                    <div class="card-content">
+                        <span class="card-title">
+                            A <span style="color: {{ item.color }}">{{ item.color }}</span> {{ item.name }}
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'assoc_item' pokemon.id item.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">Give</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>{{pokemon.name}} Already Has All Items Available</h5>
+        {% endif %}
     </div>
 </div>
 
