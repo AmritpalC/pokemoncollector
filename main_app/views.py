@@ -37,7 +37,7 @@ class PokemonCreate(CreateView):
 
 class PokemonUpdate(UpdateView):
     model = Pokemon
-    fields = ['weight', 'height', 'description']
+    fields = ['weight', 'height', 'type', 'description']
 
 class PokemonDelete(DeleteView):
     model = Pokemon

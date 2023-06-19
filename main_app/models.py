@@ -1,7 +1,5 @@
 from django.db import models
-
 from django.urls import reverse
-
 from datetime import date
 
 # Tuple of 2-tuples
@@ -10,6 +8,7 @@ BERRIES = (
     ('N', 'Nanab'),
     ('P', 'Pinap'),
 )
+
 
 # Create your models here.
 class Item(models.Model):
@@ -21,6 +20,7 @@ class Item(models.Model):
     
     def get_absolute_url(self):
         return reverse('items_detail', kwargs={'pk': self.id})
+
 
 class Pokemon(models.Model):
     name = models.CharField(max_length=100)
@@ -40,9 +40,10 @@ class Pokemon(models.Model):
     def fed_for_today(self):
         return self.feeding_set.filter(date=date.today()).count() >= len(BERRIES)
     
-# New model - berries
+
+# New model - Feeding berries
 class Feeding(models.Model):
-    date = models.DateField('feeding date')
+    date = models.DateField('Feeding Date')
     berry = models.CharField(
         max_length=1, 
         choices=BERRIES,
